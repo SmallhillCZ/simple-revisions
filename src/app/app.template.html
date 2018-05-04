@@ -1,0 +1,73 @@
+<header>
+  <div class="container">
+
+    <div class="row">
+      <div class="col-8">
+        <h1>{{title}}</h1>
+      </div>
+      <div id="submit" class="col-4 text-center">
+        <a (click)="helpModal.show()" class="help">Zobrazit nápovědu</a>
+        <button type="button" class="btn btn-primary" (click)="publishComments()">Odeslat náměty ({{this.newComments.length}})</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+    
+  <div class="row" id="page">
+    <div id="document" class="col-9">
+      <div *ngFor="let line of document" class="line" [title]="line.catI" [style.background-color]="getRedAlpha(line)" [class.open]="line.open" [class.bg-primary]="line.open" [class.bg-warning]="isLineUnsaved(line)" (click)="openComments(line)">
+        
+        <div class="text" [innerHTML]="line.content"></div>
+        
+        <div class="comments">
+          <div *ngFor="let comment of line.comments" class="comment shadow" [class.bg-warning]="comment.unsaved" (click)="editComment(comment)" [innerHTML]="comment.text | nl2br">
+          </div>
+          <a (click)="addComment(line)" class="shadow text-white bg-primary">+ přidat námět</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #commentModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Upravit připomínku</h4>
+      </div>
+      <form *ngIf="editedComment">
+        <div class="modal-body">
+          <textarea ngModel name="text" [(ngModel)]="editedComment.text" placeholder="Text Vaší připomínky napište zde"></textarea>
+        </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteComment()">Smazat</button>
+        <button type="submit" class="btn btn-primary" (click)="saveComment()">Uložit</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #helpModal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Nápověda</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="helpModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ul>
+          <li>Námět přidáte kliknutím na řádek, kterého se týká a dále kliknutím na tlačítko Přidat námět</li>
+          <li>Obecné náměty přidávejte na první řádek s nadpisem dokumentu</li>
+          <li>Napsaný námět upravíte tím, že na něj kliknete. Již odeslané přnáměty upravovat nelze.</li>
+          <li><strong class="text-danger">Po přidání všech námětů nezapomeňte zmáčkout tlačítko Odeslat náměty!</strong></li>
+          <li>Neodeslané náměty zůstávají uloženy ve vašem prohlížeči, dokud je nesmažete, takže je možné stránku zavřít a pokračovat později. Volbami vymazat dočasná data, případě aplikacemi na "úklid" počítače se tyto data mohou smazat.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

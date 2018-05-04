@@ -1,0 +1,12 @@
+body{font-size:16px;font-family:Cambria,serif;}
+
+
+h2,h3,h4{font-weight:bold;margin:0;font-family:Calibri,serif;}
+h1{padding:0;margin:0px;font-family:Calibri,serif;color:rgb(231,52,49);}
+h2{font-size:1.3em;color:rgb(37,129,196);}
+h3{font-size:1.1em;color:rgb(166,166,166);}
+h4{font-size:1em;color:rgb(0,176,240);}
+
+p{text-align:justify}
+
+ol.alpha{list-style-type: lower-alpha;}

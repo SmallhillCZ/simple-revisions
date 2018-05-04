@@ -3,12 +3,11 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
     "build": "ng build --prod",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "server": "NODE_ENV=production node server/server.js",
+    "dev-build": "ng build --watch --aot",
+    "dev-server": "NODE_ENV=production nodemon server/server.js",
+    "dev": "concurrently \"npm run dev-build\" \"npm run dev-server\""
   },
   "private": true,
   "dependencies": {
@@ -21,7 +20,11 @@
     "@angular/platform-browser": "^5.2.0",
     "@angular/platform-browser-dynamic": "^5.2.0",
     "@angular/router": "^5.2.0",
+    "classlist.js": "^1.1.20150312",
     "core-js": "^2.4.1",
+    "iconv": "^2.3.0",
+    "intl": "^1.2.5",
+    "ngx-bootstrap": "^2.0.4",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.19"
   },
@@ -29,6 +32,7 @@
     "@angular/cli": "1.6.8",
     "@angular/compiler-cli": "^5.2.0",
     "@angular/language-service": "^5.2.0",
+    "concurrently": "^3.5.1",
     "typescript": "~2.5.3"
   }
 }
