@@ -10,6 +10,7 @@ A simple web app to anonymously gather revisions for document.
 
 ```
 npm install
+npm run build
 ```
 
 ## Configuration
