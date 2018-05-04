@@ -2,12 +2,13 @@
   <div class="container">
 
     <div class="row">
-      <div class="col-8">
+      <div class="col-7">
         <h1>{{title}}</h1>
       </div>
-      <div id="submit" class="col-4 text-center">
+      <div id="submit" class="col-5 text-center">
         <a (click)="helpModal.show()" class="help">Zobrazit nápovědu</a>
         <button type="button" class="btn btn-primary" (click)="publishComments()">Odeslat náměty ({{this.newComments.length}})</button>
+        <button type="button" class="btn btn-danger" (click)="deletePopup.show()">Smazat vše</button>
       </div>
     </div>
   </div>
@@ -17,7 +18,7 @@
     
   <div class="row" id="page">
     <div id="document" class="col-9">
-      <div *ngFor="let line of document" class="line" [title]="line.catI" [style.background-color]="getRedAlpha(line)" [class.open]="line.open" [class.bg-primary]="line.open" [class.bg-warning]="isLineUnsaved(line)" (click)="openComments(line)">
+      <div *ngFor="let line of document" class="line" [style.background-color]="getRedAlpha(line)" [class.open]="line.open" [class.bg-primary]="line.open" [class.bg-warning]="isLineUnsaved(line)" (click)="openComments(line)">
         
         <div class="text" [innerHTML]="line.content"></div>
         
@@ -35,17 +36,34 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title pull-left">Upravit připomínku</h4>
+        <h4 class="modal-title pull-left">Upravit námět</h4>
       </div>
       <form *ngIf="editedComment">
         <div class="modal-body">
-          <textarea ngModel name="text" [(ngModel)]="editedComment.text" placeholder="Text Vaší připomínky napište zde"></textarea>
+          <textarea ngModel name="text" [(ngModel)]="editedComment.text" placeholder="Text Vašeho námětu napište zde"></textarea>
         </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteComment()">Smazat</button>
         <button type="submit" class="btn btn-primary" (click)="saveComment()">Uložit</button>
       </div>
       </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #deletePopup="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Smazat data v tomto počítači</h4>
+      </div>
+      <div class="modal-body">
+        Tímto budou smazány všechny vaše neodeslané i odeslané náměty z tohoto počítače.
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn" (click)="deletePopup.hide()">Zavřít</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteData();deletePopup.hide()">Smazat</button>
+      </div>
     </div>
   </div>
 </div>

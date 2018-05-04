@@ -172,6 +172,12 @@ export class AppComponent implements AfterViewInit {
     localStorage.setItem('comments', JSON.stringify(this.newComments));
   }
   
+  deleteData(){
+    localStorage.removeItem('comments');
+    localStorage.removeItem('savedComments');
+    this.loadComments();
+  }
+  
   saveSaved(){
     localStorage.setItem('savedComments', JSON.stringify(this.comments));
   }
