@@ -56,7 +56,7 @@ app.post("/revisions",(req,res,next) => {
 
     fs.writeFile('./data/revisions.json', revisionsString, (err) => {
       if (err) return next(err);
-      res.json(newRevisions);
+      res.sendStatus(200);
     });
     
   });
