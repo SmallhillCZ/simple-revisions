@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
+    "start": "NODE_ENV=production node server/server.js",
     "build": "ng build --prod",
-    "server": "NODE_ENV=production node server/server.js",
     "dev-build": "ng build --watch --aot",
     "dev-server": "NODE_ENV=production nodemon server/server.js",
     "dev": "concurrently \"npm run dev-build\" \"npm run dev-server\""
