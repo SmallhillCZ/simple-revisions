@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "start": "NODE_ENV=production node server/server.js",
+    "export": "NODE_ENV=production node server/export.js",
     "build": "ng build --prod",
     "dev-build": "ng build --watch --aot",
     "dev-server": "NODE_ENV=production nodemon server/server.js",

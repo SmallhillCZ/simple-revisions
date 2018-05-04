@@ -3,7 +3,6 @@ var app = express();
 
 var http = require("http");
 var fs = require("fs");
-var iconv = require('iconv-lite');
 
 var config = require("./config");
 
@@ -23,32 +22,6 @@ app.get("/style",(req,res,next) => {
 
 app.get("/config",(req,res,next) => {
   res.sendFile("data/config.json", { root: __dirname + "/.." });
-});
-
-app.get("/revisions",(req,res,next) => res.donwload('data/revisions.json'));
-
-app.get("/revisions/json",(req,res,next) => res.donwload('data/revisions.json'));
-
-app.get("/revisions/csv",(req,res,next) => {
-  fs.readFile('data/revisions.json', function read(err, data) {
-    if (err) return next(err);
-    data = JSON.parse(data);
-    
-    var output = [config.csv.header];
-    
-    data.forEach(comment => {
-      output.push([comment.catI[0],comment.cat[0],comment.catI[1],comment.cat[1],comment.catI[2],comment.cat[2],comment.catI[3],comment.cat[3],comment.catI[4],comment.cat[4] + "...",comment.text]);
-    });
-    
-    
-    var csv = output.map(line => line.map(value => "\"" + (typeof value === "string" ? value.replace(/\r?\n/g," | ") : value) + "\"").join(config.csv.delimiter)).join(config.csv.newline);
-    
-    var buff = iconv.encode(csv, config.csv.encoding);
-    res.setHeader('Cache-Control', 'no-cache');
-    res.setHeader('Content-disposition', 'attachment; filename=revisions.csv');
-    res.setHeader('Content-Type', "text/csv;charset=utf-8");
-    res.send(buff);
-  });
 });
 
 app.post("/revisions",(req,res,next) => {
